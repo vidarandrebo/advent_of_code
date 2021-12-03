@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "03": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\vidar\\Repos\\advent_of_code\\03"
+    }
+  }
+}
