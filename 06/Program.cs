@@ -38,9 +38,8 @@ namespace Name
             {
                 newDict[i - 1] = fish[i];
             }
-            var newFish = fish[0];
             newDict[6] += fish[0];
-            newDict[8] = newFish;
+            newDict[8] = fish[0];
             return newDict;
         }
     }
