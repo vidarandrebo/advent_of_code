@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-var part1 = await Task05.Name.Run(diagonal: false);
+﻿var part1 = await Task05.Name.Run(diagonal: false);
 var part2 = await Task05.Name.Run(diagonal: true);
 Console.WriteLine($"Part 1, without diagonal: {part1}");
 Console.WriteLine($"Part 2, with diagonal: {part2}");
@@ -10,9 +9,7 @@ namespace Task05
     {
         public static async Task<int> Run(bool diagonal) {
             var fileLines = await File.ReadAllLinesAsync("val.txt");
-            var lines = new List<Line>();
             var grid = new int[1024,1024];
-            //grid.PrintBoard();
             foreach(var line in fileLines) {
                 var coordinateNumbers = line
                     .Split("->")
@@ -22,11 +19,10 @@ namespace Task05
                     .ToArray();
                 var start = new Coordinate(coordinateNumbers[0][0], coordinateNumbers[0][1]);
                 var end = new Coordinate(coordinateNumbers[1][0], coordinateNumbers[1][1]);
-                lines.Add(new Line(start,end));
-                grid.InsertPoints(lines.Last().GeneratePoints(diagonal: diagonal));
+                var currentLine = new Line(start,end);
+                grid.InsertPoints(currentLine.GeneratePoints(diagonal: diagonal));
 
             }
-            //grid.PrintBoard();
             return grid.GetOverlapCount();
         }
         public static void InsertPoints(this int[,] grid, Coordinate[] coordinates) {
@@ -36,7 +32,11 @@ namespace Task05
         }
         public static void PrintBoard(this int[,] grid) {
             for (int i = grid.GetLength(0)-1; i >= 0; i--) {
-                Console.WriteLine(String.Join('\t', Enumerable.Range(0,grid.GetLength(0)).Select(x => grid[x,i])));
+                Console.WriteLine(
+                    String.Join('\t',
+                    Enumerable.Range(0,grid.GetLength(0))
+                        .Select(x => grid[x,i]))
+                    );
             }
         }
         public static int GetOverlapCount(this int[,] grid) {
